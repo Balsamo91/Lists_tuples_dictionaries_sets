@@ -1,7 +1,7 @@
 student_record = ("John Doe", 20, "Computer Science")
 
 
-# Creating multiple cariable from tuple ONLY
+# Creating multiple variable from tuple ONLY
 name, age, departement = student_record
 
 print(f"Student Name: {name}")
