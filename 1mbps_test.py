@@ -2,7 +2,6 @@ print("\nWelcome to the company's Account and Warehouse!\n")
 
 # Setting up the global variable and empty list 
 account = 1000
-
 warehouse_list = []
 
 # Start of the program
@@ -80,6 +79,8 @@ while True:
         print(f"\nThe total ammount availble is € {account}!")
 
     elif action == "list":
+        for key, value in warehouse_list.sort():
+            print(f"- {key}: {value}")
         print(f"\nThe warehouse availability is the following: \n{warehouse_list}")
 
     elif action == "warehouse":
