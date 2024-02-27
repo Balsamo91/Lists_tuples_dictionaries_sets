@@ -45,7 +45,7 @@ while True:
         # If account is higher then the purchase price entered then add the variable into the warehouse_list[] as a dictionary
         if account > price:
             # warehouse_list.append({"name" : name, "price" : price, "quantity" : quantity})
-            warehouse_list.items({"name" : name, "price" : price, "quantity" : quantity})
+            warehouse_list.copy({"name" : name, "price" : price, "quantity" : quantity})
             account -= price * quantity # substract the purchased items from the account
             print(f"\nPurchase has been successful! {quantity} unit(s) of {name} bought for a total of {price * quantity}.")
             print(warehouse_list)
