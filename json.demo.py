@@ -1,4 +1,4 @@
-# pip install requests to install the module
+# pip3 install requests to install the module
 import requests
 
 respone = requests.get("https://swapi.dev/api/films/1")
@@ -16,7 +16,7 @@ respone_dict.pop("planets")
 respone_dict.pop("starships")
 respone_dict.pop("vehicles")
 respone_dict.pop("species")
-respone_dict.pop("ulr")
+respone_dict.pop("url")
 respone_dict.pop("characters")
 
 print(respone_dict)

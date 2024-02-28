@@ -12,6 +12,10 @@ while True:
     # Asking the user to chose an option based on what they want to do
     print("\nOptions: balance, sale, purchase, account, list, warehouse, review, end")
     action = input("What would you like to do?: ").lower()
+    operations_recorded.append({
+    "type": "choosing action",
+    "action": action,
+    "timestamp": datetime.datetime.now()})
 
     # If user type "end" the program terminates
     if action == "end":
@@ -29,6 +33,11 @@ while True:
             if account + balance >= 0:
                 account += balance # this will add the balance to account
                 print(account)
+                operations_recorded.append({
+                "type": "balance action",
+                "account": balance,
+                "timestamp": datetime.datetime.now()})
+                print(operations_recorded)
                 break
             elif account <= 0 and balance <= 0:
                 print("\nNot sufficient funds! Retry another time!")
@@ -64,7 +73,7 @@ while True:
             #         print(f"{key}: {value}")
             #         print()
             operations_recorded.append({
-            "type": "purchase",
+            "type": "purchase action",
             "name": name,
             "price": price,
             "quantity": quantity,
@@ -96,7 +105,7 @@ while True:
                 # print("Updated warehouse:", warehouse_list)
                 # print("Updated account balance:", account)
                 operations_recorded.append({
-                "type": "sale",
+                "type": "sale action",
                 "name": name,
                 "price": price,
                 "quantity": quantity,
@@ -108,6 +117,9 @@ while True:
 
     elif action == "account":
         print(f"\nThe total ammount availble is € {account}!")
+        operations_recorded.append({
+        "type": "account action",
+        "timestamp": datetime.datetime.now()})
 
     elif action == "list":
         print("\nThe warehouse availability is the following:\n")
@@ -115,22 +127,59 @@ while True:
             print()
             for key, value in list.items():
                 print(f"- {key.capitalize()}: {value}")
-        # print(f"\nThe warehouse availability is the following: \n{warehouse_list}")
+                operations_recorded.append({
+                "type": "list action",
+                "timestamp": datetime.datetime.now()})
 
     elif action == "warehouse":
         name = input("Enter the name of product: ")
         for find in warehouse_list:
             if find["name"] == name:
-                # print(f"\nHere is the result:\n\nName: {find["name"]}\nPrice: {find["price"]}\nQuantity: {find["quantity"]}")
                 print(f"\nHere is the result:\n\nName: {find["name"]}\nQuantity: {find["quantity"]}")
+                operations_recorded.append({
+                "type": "list action",
+                "timestamp": datetime.datetime.now()})
                 break
             else:
                 print("\nProduct is not in the system, Bruh!!!")
 
+    elif action == "review":
+        try:
+            from_indice_input = input("From when you want to start? (start from 1 as for the oldest in time)-(press Enter to skip): ")
+            to_indice_input = input("To when you want to check data? (higher number means lastest data)-(press Enter to skip): ")
+
+            if from_indice_input == "" and to_indice_input == "":
+                for no_input in operations_recorded:
+                    print()
+                    for key1, value1 in no_input.items():
+                        print(f"- {key1.capitalize()}: {value1}")
+            else:
+                # Converting input to integers
+                from_indice = int(from_indice_input) if from_indice_input else 0
+                to_indice = int(to_indice_input) if to_indice_input else len(operations_recorded)
+
+                if 0 < from_indice <= len(operations_recorded) and 0 < to_indice <= len(operations_recorded) and from_indice <= to_indice:
+                    for r in range(from_indice - 1, to_indice):
+                        review = operations_recorded[r]
+                        print()
+                        for key1, value1 in review.items():
+                            print(f"- {key1.capitalize()}: {value1}")
+                else:
+                    print("\nNot in range, Bruh!!!")
+
+        except ValueError:
+            print("\nInvalid input. Please enter valid indices.")
+
+    else:
+        print("\nInvalid command!\n")
+
+
+
+    
     # elif action == "review":
     #     try:
-    #         from_index = int(input("Enter 'from' index: ")) if input("Enter 'from' index (press Enter to skip): ").strip() else None
-    #         to_index = int(input("Enter 'to' index: ")) if input("Enter 'to' index (press Enter to skip): ").strip() else None
+    #         from_index = int(input("Please type 'from' index: ")) if input("Please type 'from' index (press Enter to skip): ").strip() else None
+    #         to_index = int(input("Please type 'to' index: ")) if input("Please type 'to' index (press Enter to skip): ").strip() else None
 
     #         # Check if indices are within the valid range
     #         if (from_index is not None and (from_index < 0 or from_index >= len(operations_recorded))) or \
@@ -142,7 +191,3 @@ while True:
     #                 print(operations_recorded[i])
     #     except ValueError:
     #         print("Invalid input. Please enter valid indices.")
-
-    else:
-        print("\nInvalid command!\n")
-        
