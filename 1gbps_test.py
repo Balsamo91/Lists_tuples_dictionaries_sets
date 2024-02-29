@@ -1,11 +1,10 @@
-# Importing datatime module to keep track of event times for when the user do operations
 import datetime
 print("\nWelcome to the company's Account and Warehouse!\n")
 
 # Setting up the global variable and empty list 
-account = 0
+account = 1000
 warehouse_list = []
-operations_recorded = [] # In here I am recording every single oparation done by the user
+operations_recorded = []
 
 
 # Start of the program
@@ -33,12 +32,13 @@ while True:
         while True:
             if account + balance >= 0:
                 account += balance # this will add the balance to account
+                print(account)
                 operations_recorded.append({
                 "type": "balance action",
                 "account": balance,
                 "timestamp": datetime.datetime.now()})
+                print(operations_recorded)
                 break
-            # checking if the user subtract more than the ammount available
             elif account <= 0 and balance <= 0:
                 print("\nNot sufficient funds! Retry another time!")
                 break
@@ -67,15 +67,24 @@ while True:
                 warehouse_list.append({"name" : name, "price" : price, "quantity" : quantity})
             account -= price * quantity # substract the purchased items from the account
             print(f"\nPurchase has been successful! {quantity} unit(s) of {name} bought for a total of {price * quantity}.")
+            # print("\nWarehouse items:")
+            # for item in warehouse_list:
+            #     for key, value in item.items():
+            #         print(f"{key}: {value}")
+            #         print()
             operations_recorded.append({
             "type": "purchase action",
             "name": name,
             "price": price,
             "quantity": quantity,
             "timestamp": datetime.datetime.now()})
+            
+            print(warehouse_list)
+            print(account)
+            print(operations_recorded)
         else:
             print("\nNot enough fund, Bruh!!!!")
-    
+            print(account)
 
     # If the user type "sale" the program will ask user inputs and if not int() the user will need to restart
     elif action == "sale":
@@ -93,6 +102,8 @@ while True:
                 s["quantity"] -= quantity
                 account += price * quantity
                 print(f"\nSale has been successful! {quantity} unit(s) of {name} sold for a total of {price * quantity}.")
+                # print("Updated warehouse:", warehouse_list)
+                # print("Updated account balance:", account)
                 operations_recorded.append({
                 "type": "sale action",
                 "name": name,
@@ -103,14 +114,13 @@ while True:
         else:
             print("\nProduct not found or insufficient quantity in the warehouse, Bruh!!!")
 
-    # It gives to the ammount available
+
     elif action == "account":
         print(f"\nThe total ammount availble is € {account}!")
         operations_recorded.append({
         "type": "account action",
         "timestamp": datetime.datetime.now()})
 
-    # It will print everything in the warehouse listing it nicely
     elif action == "list":
         print("\nThe warehouse availability is the following:\n")
         for list in warehouse_list:
@@ -121,7 +131,6 @@ while True:
                 "type": "list action",
                 "timestamp": datetime.datetime.now()})
 
-    # It will ask the user to input the name of the item. if not present it will say not present
     elif action == "warehouse":
         name = input("Enter the name of product: ")
         for find in warehouse_list:
@@ -134,20 +143,18 @@ while True:
             else:
                 print("\nProduct is not in the system, Bruh!!!")
 
-    # It will ask the user to enter a digit or press enter.
     elif action == "review":
         try:
             from_indice_input = input("From when you want to start? (start from 1 as for the oldest in time)-(press Enter to skip): ")
             to_indice_input = input("To when you want to check data? (higher number means lastest data)-(press Enter to skip): ")
-            
-            # if Enter is pressed it will print all recored operations
+
             if from_indice_input == "" and to_indice_input == "":
                 for no_input in operations_recorded:
                     print()
                     for key1, value1 in no_input.items():
                         print(f"- {key1.capitalize()}: {value1}")
             else:
-                # if digits are entered then it convert the input to int() and if it is within range it will provide the info in range else it will say not in range
+                # Converting input to integers
                 from_indice = int(from_indice_input) if from_indice_input else 0
                 to_indice = int(to_indice_input) if to_indice_input else len(operations_recorded)
 
