@@ -108,5 +108,20 @@ while True:
         
     else:
         print("\nInvalid command!\n")
+
+
+#             from_indice_input and to_indice_input are the input values obtained from the user.
+
+#     int(from_indice_input): Converts from_indice_input to an integer using the int() function.
+
+#     if from_indice_input else 0: This is a conditional expression (also known as a ternary operator). It checks if from_indice_input is non-empty (truthy). If it is, the expression evaluates to int(from_indice_input). If it is empty (falsy), the expression evaluates to 0.
+
+#     So, effectively, this line ensures that from_indice is an integer value if from_indice_input is non-empty, otherwise, it is set to 0.
+
+#     to_indice = int(to_indice_input) if to_indice_input else len(operations_recorded): Similar to the previous line, this converts to_indice_input to an integer if it is non-empty, and if it is empty, it is set to the length of operations_recorded.
+
+#     This line ensures that to_indice is an integer value if to_indice_input is non-empty, otherwise, it is set to the length of operations_recorded.
+
+# In summary, these lines handle the conversion of user input to integers (from_indice and to_indice) while gracefully handling the case when the user presses Enter without entering any value. If the user input is empty, the default values are set to 0 and the length of operations_recorded, respectively.
         
         

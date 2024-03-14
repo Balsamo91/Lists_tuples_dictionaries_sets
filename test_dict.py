@@ -7,3 +7,5 @@ for item, details in my_dict.items():
     print(item.capitalize(), details)
     for value in details:
         print(f"-{value}")
+
+        
